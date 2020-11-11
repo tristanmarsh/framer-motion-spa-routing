@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import { Route, BrowserRouter, Switch, Link } from "react-router-dom"
+import { Helmet } from "react-helmet"
+
+import "./App.css"
+import { About } from "./scenes/about/About"
+import { Navigation } from "./components/Navigation"
+import { Home } from "./scenes/home/Home"
+import { Profile } from "./components/Profile"
 
 const App: React.FC = () => {
   return (
     <div className="App">
+      <Header />
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <BrowserRouter>
+          <Navigation />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/profile/:id" component={Profile} />
+            <Route path="/profile" component={Profile} />
+          </Switch>
+        </BrowserRouter>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+const Header = () => (
+  <Helmet>
+    <meta lang="en-AU" />
+    <meta charSet="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossOrigin="anonymous"
+    />
+  </Helmet>
+)
+export default App
